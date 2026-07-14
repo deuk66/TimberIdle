@@ -9,8 +9,7 @@ public class MainMenu : MonoBehaviour
     // 模擬音量設定的變數（示範用，你可以根據之後的 UI 調整）
     private float volume_setting = 1.0f;
 
-    private void Start()
-    {
+    private void Start(){
         // 遊戲一開始，自動讀取之前存過的音量設定（如果沒有紀錄過，預設值給 1.0）
         volume_setting = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
         Debug.Log("已讀取音量設定：" + volume_setting);
@@ -18,8 +17,7 @@ public class MainMenu : MonoBehaviour
         // 在這裡把讀取到的數值，套用到音量控制元件上
     }
 
-    private void Update()
-    {
+    private void Update(){
         // 偵測玩家是否按Esc
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -32,14 +30,12 @@ public class MainMenu : MonoBehaviour
     }
 
     // 1. 開始遊戲
-    public void start_game()
-    {
-        SceneManager.LoadScene("GameScene"); 
+    public void start_game(){
+        SceneManager.LoadScene("main_game"); 
     }
 
     // 2. 打開設定視窗
-    public void open_option()
-    {
+    public void open_option(){
         if (option_window != null)
         {
             option_window.SetActive(true); // 顯示設定視窗
@@ -47,8 +43,7 @@ public class MainMenu : MonoBehaviour
     }
 
     // 3. 關閉設定視窗
-    public void close_option()
-    {
+    public void close_option(){
         if (option_window != null)
         {
             //在關閉視窗時把當前的設定存起來
