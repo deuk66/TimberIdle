@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 1857533568}
   - component: {fileID: 1857533567}
   m_Layer: 0
-  m_Name: worker2test_1
+  m_Name: man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
