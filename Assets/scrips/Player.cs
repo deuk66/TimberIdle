@@ -6,10 +6,10 @@ using static UnityEngine.Application;
 using static UnityEngine.JsonUtility;
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Vector3 tp=new Vector3();
     void Start()
     {
-        transform.position=new Vector2(0,0);
+        
     }
 
     // Update is called once per frame
@@ -17,60 +17,45 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 target_position = Input.mousePosition;
-            target_position.z=-10f;
-            target_position=Camera.main.ScreenToWorldPoint(target_position);
-            Vector2 tp=target_position;
-            move_to(tp);
+            tp = Input.mousePosition;
+            tp=Camera.main.ScreenToWorldPoint(tp);
+            tp.z=-1f;
         }
+        move_to(tp);
+        player_data.Player_Position=transform.position;
     }
-    void move_to(Vector2 t_p)
+
+    [Header("移動設定")]
+    public float moveSpeed = 5f; // 移動速度（單位：單位/秒）
+
+    /// <summary>
+    /// 讓角色均速平移至指定的目標座標
+    /// </summary>
+    /// <param name="targetPosition">目標世界座標</param>
+    public void move_to(Vector3 targetPosition)
     {
-        
+        transform.position = Vector3.MoveTowards(
+            transform.position, 
+            targetPosition, 
+            moveSpeed * Time.deltaTime
+        );
     }
-    void step(float rolation)
+    //向量版本
+    /*
+    /// <summary>
+    /// 讓角色朝指定方向向量均速平移指定距離
+    /// </summary>
+    /// <param name="direction">移動方向（建議傳入單位向量）</param>
+    /// <param name="distance">移動總距離</param>
+    public void MoveInDirection(Vector3 direction, float distance)
     {
-        Vector2 tp=transform.position;
-        Vector2 angle=new Vector2();
-        switch (rolation)
-        {
-            case 0f:
-            {
-                tp=tp + Vector2.up;
-                angle=Vector2.up;
-                break;
-            }
-            case 90f:
-            {
-                tp=tp + Vector2.left;
-                angle=Vector2.left;
-                break;    
-            }
-            case 180f:
-            {   
-                tp=tp +Vector2.down;
-                angle=Vector2.down;
-                break;    
-            }
-            case 270f:
-            {
-                tp=tp + Vector2.right;
-                angle=Vector2.right;
-                break;    
-            }
-        }
-        
-        if (!Physics2D.OverlapPoint(tp))
-        {
-            Vector2 np= transform.position;
-            while (np != tp)
-            {
-                transform.position=transform.position+angle*0.1f;
-            }
-        }
+        // 算出目標位置後呼叫原有的移動函數
+        Vector3 targetPosition = transform.position + direction.normalized * distance;
+        MoveToTarget(targetPosition);
     }
+    */
 }
-public  static class player_data
+public static class player_data
 {
-    
+    public static Vector3 Player_Position;
 }

@@ -1,29 +1,30 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class manager : MonoBehaviour
 {
-    public GameObject ground_with_color;
     public GameObject tree;
     public int map_size=9;
     public int tree_quantity=36;
     struct space{
-        public bool tree;
-        public Vector2 position;
+        public GameObject tree;
+        public Vector3 position;
     };
     space [,] map;
     
     void Start(){
         map=new space[map_size,map_size];
-        GameObject grounds_folder =new GameObject("ground_colors");
-        GameObject trees_folder=new GameObject("trees");
-        for(float i = 0; i <map_size; i++){
-            for(float j = 0; j <map_size; j++){
-                Vector2 position=new Vector2(i-3,j-3);
-                Instantiate(ground_with_color, position,Quaternion.identity,grounds_folder.transform);
-                map[(int)i,(int)j].position=new Vector2(i-3,j-3);
+        GameObject tree_top=new GameObject{};
+
+        for(int i = 0; i < map_size; i++)
+        {
+            for(int j = 0; j < map_size; j++)
+            {
+                map[i,j].position=new Vector3(i-4,j-4,-0.01f);
             }
         }
+
         for(int _ = 0; _ < tree_quantity; _++)
         {
             while (true)
@@ -32,15 +33,19 @@ public class manager : MonoBehaviour
                 int j=Random.Range(0,map_size);
                 if (!map[i, j].tree)
                 {
-                    Instantiate(tree,map[i,j].position,tree.transform.rotation,trees_folder.transform);
-                    map[i,j].tree=true;
+                    manager_data.trees.Add(Instantiate(tree,map[i,j].tree.transform.position,tree.transform.rotation,tree_top.transform));
+                    map[i,j].tree=manager_data.trees[_];
                     break;
                 }
             }
         }
     }
-
     void Update(){
         
     }
+
+}
+public static class manager_data
+{
+    public static List<GameObject> trees=new List<GameObject>{};
 }
