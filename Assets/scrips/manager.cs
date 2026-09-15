@@ -39,8 +39,16 @@ public class manager : MonoBehaviour
             }
         }
     }
+    public float moveSpeed =5f; // 鏡頭移動速度
     void Update(){
-        
+        float inputX = Input.GetAxisRaw("Horizontal");//左右
+        float inputY = Input.GetAxisRaw("Vertical");
+        Vector3 moveDirection=Camera.main.transform.up*inputY+ Camera.main.transform.right*inputX;
+        moveDirection =moveDirection.normalized;
+        if (moveDirection.magnitude > 0)
+        {
+            Camera.main.transform.position+= moveDirection *Time.deltaTime*moveSpeed;
+        }
     }
 
 }

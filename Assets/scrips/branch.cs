@@ -6,8 +6,10 @@ using UnityEngine.UIElements;
 public class branch : MonoBehaviour
 {
     public float moveSpeed;
+    public GameObject next_wood;
     Vector3 player=player_data.Player_Position;
-    public bool catched;
+    public bool catched=false;
+    public Transform target;
     public void move_to(Vector3 targetPosition)
         {
             transform.position = Vector3.MoveTowards(
@@ -24,17 +26,14 @@ public class branch : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("碰到了物件：" + other.name);
+        catched=true;
     }
     void Update()
     {
-        if (!catched&&(transform.position - player).sqrMagnitude <= 1.0)
+        if(catched)
         {
-            Debug.Log("catched");
-            catched=true;
-        }
-        if(catched&&(transform.position - player).sqrMagnitude > 1.0)
-        {
-            move_to(player_data.newposition);
+            Vector3 a =new Vector3((float)0.4,(float)0.4,(float)0.4);
+            move_to(target.position+a);
         }
     }
 }

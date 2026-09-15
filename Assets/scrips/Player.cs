@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(
             transform.position, 
-            targetPosition, 
+            targetPosition,
             moveSpeed * Time.deltaTime
         );
         player_data.newposition=targetPosition;
