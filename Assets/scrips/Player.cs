@@ -7,6 +7,7 @@ using static UnityEngine.JsonUtility;
 public class Player : MonoBehaviour
 {
     Vector3 tp=new Vector3();
+    public Vector3 newposition=new Vector3();
     void Start()
     {
         
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
         {
             tp = Input.mousePosition;
             tp=Camera.main.ScreenToWorldPoint(tp);
-            tp.z=-1f;
+            tp.z=0f;
         }
         move_to(tp);
         player_data.Player_Position=transform.position;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
             targetPosition, 
             moveSpeed * Time.deltaTime
         );
+        player_data.newposition=targetPosition;
     }
     //向量版本
     /*
@@ -58,4 +60,5 @@ public class Player : MonoBehaviour
 public static class player_data
 {
     public static Vector3 Player_Position;
+    public static Vector3 newposition;
 }
