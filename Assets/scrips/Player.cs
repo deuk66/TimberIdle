@@ -42,6 +42,27 @@ public class Player : MonoBehaviour
         );
         player_data.newposition=targetPosition;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("touch "+other.name);
+        if (!player_data.first_branch&&other.name == "branch")
+        {
+            player_data.first_branch=other.gameObject.GetComponent<branch>();
+        }else if(player_data.first_branch&&other.name=="branch")
+        {
+            // if (!(other.gameObject.GetComponent<branch>().catched))
+            // {
+            //     other.gameObject.GetComponent<branch>().catched=true;
+            //     player_data.branch_count++;
+            // }
+            player_data.first_branch.bs.add_next(other.GetComponent<branch>());
+        }
+        else if (other.name == "station")
+        {
+            player_data.first_branch.bs.collect();
+        }
+    }
     //向量版本
     /*
     /// <summary>
@@ -61,4 +82,6 @@ public static class player_data
 {
     public static Vector3 Player_Position;
     public static Vector3 newposition;
+    public static int branch_count;
+    public static branch first_branch;
 }

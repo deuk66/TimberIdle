@@ -1,19 +1,21 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public struct space{
     public GameObject tree;
+    public GameObject ground;
     public Vector3 position;
 };
 public class manager : MonoBehaviour
 {
-    public GameObject tree;
+    public GameObject tree,ground,tree_top,ground_top;
     public int map_size=9;
     public int tree_quantity=36;
-    
-    public GameObject tree_top;
+    public Transform station;
     void Start(){
+        manager_data.station=station;
         manager_data.map=new space[map_size,map_size];
 
         for(int i = 0; i < map_size; i++)
@@ -21,6 +23,7 @@ public class manager : MonoBehaviour
             for(int j = 0; j < map_size; j++)
             {
                 manager_data.map[i,j].position=new Vector3(i-4,j-4,-0.01f);
+                manager_data.map[i,j].ground=Instantiate(ground,manager_data.map[i,j].position,ground.transform.rotation,ground_top.transform);
             }
         }
 
@@ -57,4 +60,5 @@ public static class manager_data
 {
     public static space [,] map;
     public static List<GameObject> trees=new List<GameObject>{};
+    public static Transform station;
 }
