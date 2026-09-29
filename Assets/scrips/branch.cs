@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UIElements;
@@ -37,9 +38,10 @@ public class branch : MonoBehaviour
 }
 public class branch_string
 {
-    branch_string next;
-    branch_string last;
-    branch main;
+    public branch_string next;
+    public branch_string last;
+    public branch main;
+    public branch end;
 
     public void collect()
     {
@@ -50,19 +52,24 @@ public class branch_string
         }
         main.target=manager_data.station.transform.position;
     }
-    public void add_next(branch t)
+    public branch add_next(branch t)
     {
         if (!main)
         {
+            t.catched=true;
             main =t;
-            return;
+            return t;
         }else if (main&&next==null)
         {
             next=new branch_string{};
+            t.catched=true;
+            return t;
         }
         if(next != null)
         {
             next.add_next(t);
+            return t;
         }
+        return t;
     }
 }

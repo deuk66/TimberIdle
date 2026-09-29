@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
         player_data.Player_Position=transform.position;
     }
 
-    [Header("移動設定")]
     public float moveSpeed = 5f; // 移動速度（單位：單位/秒）
 
     /// <summary>
@@ -46,9 +45,10 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("touch "+other.name);
-        if (!player_data.first_branch&&other.name == "branch")
+        if (!(player_data.first_branch)&&other.name == "branch")
         {
             player_data.first_branch=other.gameObject.GetComponent<branch>();
+            player_data.first_branch.catched=true;
         }else if(player_data.first_branch&&other.name=="branch")
         {
             // if (!(other.gameObject.GetComponent<branch>().catched))
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
             //     other.gameObject.GetComponent<branch>().catched=true;
             //     player_data.branch_count++;
             // }
-            player_data.first_branch.bs.add_next(other.GetComponent<branch>());
+            player_data.first_branch.bs.end=player_data.first_branch.bs.add_next(other.GetComponent<branch>());
         }
         else if (other.name == "station")
         {
@@ -83,5 +83,5 @@ public static class player_data
     public static Vector3 Player_Position;
     public static Vector3 newposition;
     public static int branch_count;
-    public static branch first_branch;
+    public static branch first_branch=null;
 }
