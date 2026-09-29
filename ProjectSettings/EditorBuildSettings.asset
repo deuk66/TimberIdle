@@ -7,6 +7,15 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/menu.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 8a6447607853bbc448ced42b3081e3e2
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 2d8329f410925b840bf8d882f7e6e875
+  - enabled: 1
+    path: Assets/Scenes/TreeSkillTree.unity
+    guid: c86f74681e6344a44b7fafcc8e075168
+  - enabled: 1
+    path: Assets/Scenes/PlayerSkillTree.unity
+    guid: 701615ea76f189742b1bdf1a7fd9d92a
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
